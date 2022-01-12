@@ -96,7 +96,7 @@ class Q_ec extends State<Qec> {
               new TextField(
                 keyboardType: TextInputType.number,
                 decoration:
-                    new InputDecoration(hintText: "Enter coefficient of x²(a)"),
+                    new InputDecoration(hintText: "Enter coefficient of x² (a)"),
                 controller: t1,
               ),
               // new Text(
@@ -110,7 +110,7 @@ class Q_ec extends State<Qec> {
               new TextField(
                 keyboardType: TextInputType.number,
                 decoration:
-                    new InputDecoration(hintText: "Enter coeffcient x(b)"),
+                    new InputDecoration(hintText: "Enter coeffcient x (b)"),
                 controller: t2,
               ),
               // new Text(
@@ -123,7 +123,7 @@ class Q_ec extends State<Qec> {
               // ),
               new TextField(
                 keyboardType: TextInputType.number,
-                decoration: new InputDecoration(hintText: "Enter constant(c)"),
+                decoration: new InputDecoration(hintText: "Enter constant (c)"),
                 controller: t3,
               ),
               new Padding(
@@ -133,7 +133,9 @@ class Q_ec extends State<Qec> {
                   onPressed: doCalculate,
                   style: ElevatedButton.styleFrom(
                     shape: const BeveledRectangleBorder(borderRadius: BorderRadius.all(Radius.circular(10))),
-                    side: BorderSide(color: Colors.white),
+                    // side: BorderSide(color: Colors.white),
+                    primary: Colors.white,
+                    onPrimary: Colors.black,
                   ),
                   child: Container(
                       color: Colors.transparent,
@@ -145,7 +147,9 @@ class Q_ec extends State<Qec> {
                   onPressed: doClear,
                   style: ElevatedButton.styleFrom(
                     shape: const BeveledRectangleBorder(borderRadius: BorderRadius.all(Radius.circular(10))),
-                    side: BorderSide(color: Colors.white),
+                    // side: BorderSide(color: Colors.white),
+                    primary: Colors.white,
+                    onPrimary: Colors.black,
                   ),
                   child: Container(
                       width: 100,

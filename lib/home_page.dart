@@ -215,6 +215,10 @@ class HomePageState extends State<HomePage> {
                           MaterialPageRoute(builder: (context) => Qec()),
                         );
                       },
+                      style: ElevatedButton.styleFrom(
+                        primary: Colors.white,
+                        onPrimary: Colors.black,
+                      ),
                       child: Container(
                           width: 200,
                           child: Center(
