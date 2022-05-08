@@ -48,8 +48,8 @@ class HomePageState extends State<HomePage> {
 
   void doClear() {
     setState(() {
-      t1.text = "0";
-      t2.text = "0";
+      t1.text = " ";
+      t2.text = " ";
       sum = 0;
     });
   }
@@ -92,7 +92,14 @@ class HomePageState extends State<HomePage> {
             mainAxisAlignment: MainAxisAlignment.center,
             children: <Widget>[
               new Text(
-                "Answer : $sum",
+                "Answer : ",
+                style: new TextStyle(
+                    fontSize: 15.0,
+                    color: Colors.white,
+                    fontWeight: FontWeight.bold),
+              ),
+              new SelectableText(
+                "$sum",
                 style: new TextStyle(
                     fontSize: 15.0,
                     color: Colors.white,

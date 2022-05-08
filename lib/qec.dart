@@ -11,7 +11,9 @@ class Qec extends StatefulWidget {
 }
 
 class Q_ec extends State<Qec> {
-  var num1 = 0.0, num2 = 0.0, num3 = 0.0, sum1 = 0.0, sum2 = 0.0;
+  var num1 = 0.0, num2 = 0.0, num3 = 0.0,
+  sum1 = 0.0, sum2 = 0.0, d=0.0, sum1numer=0.0,
+  sum2numer=0.0, den=0.0;
 
   final TextEditingController t1 = new TextEditingController(text: "");
   final TextEditingController t2 = new TextEditingController(text: "");
@@ -19,9 +21,9 @@ class Q_ec extends State<Qec> {
 
   void doClear() {
     setState(() {
-      t1.text = "0";
-      t2.text = "0";
-      t3.text = "0";
+      t1.text = " ";
+      t2.text = " ";
+      t3.text = " ";
       sum1 = 0;
       sum2 = 0;
     });
@@ -32,10 +34,12 @@ class Q_ec extends State<Qec> {
       num1 = double.parse(t1.text);
       num2 = double.parse(t2.text);
       num3 = double.parse(t3.text);
-      sum1 =
-          ((-1 * num2) + pow(pow(num2, 2) - (4 * num1 * num3), 0.5)) / 2 * num1;
-      sum2 =
-          ((-1 * num2) - pow(pow(num2, 2) - (4 * num1 * num3), 0.5)) / 2 * num1;
+      d=num2*num2 - 4*num1*num3;
+      den=2*num1;
+      sum1numer=(-num2+pow(d,0.5));
+      sum2numer=(-num2-pow(d,0.5));
+      sum1=sum1numer/den;
+      sum2=sum2numer/den;
     });
   }
 
@@ -64,7 +68,15 @@ class Q_ec extends State<Qec> {
                 padding: const EdgeInsets.only(top: 20.0),
               ),
               new Text(
-                "Answer 1 : $sum1",
+                "Answer 1 : ",
+                style: new TextStyle(
+                  fontSize: 15.0,
+                  color: Colors.white,
+                  fontWeight: FontWeight.bold,
+                ),
+              ),
+              new SelectableText(
+                "$sum1",
                 style: new TextStyle(
                   fontSize: 15.0,
                   color: Colors.white,
@@ -75,7 +87,15 @@ class Q_ec extends State<Qec> {
                 padding: const EdgeInsets.only(top: 20.0),
               ),
               new Text(
-                "Answer 2 : $sum2",
+                "Answer 2 : ",
+                style: new TextStyle(
+                  fontSize: 15.0,
+                  color: Colors.white,
+                  fontWeight: FontWeight.bold,
+                ),
+              ),
+              new Text(
+                "$sum2",
                 style: new TextStyle(
                   fontSize: 15.0,
                   color: Colors.white,
@@ -110,7 +130,7 @@ class Q_ec extends State<Qec> {
               new TextField(
                 keyboardType: TextInputType.number,
                 decoration:
-                    new InputDecoration(hintText: "Enter coeffcient x (b)"),
+                    new InputDecoration(hintText: "Enter coefficient x (b)"),
                 controller: t2,
               ),
               // new Text(
@@ -132,7 +152,7 @@ class Q_ec extends State<Qec> {
               ElevatedButton(
                   onPressed: doCalculate,
                   style: ElevatedButton.styleFrom(
-                    shape: const BeveledRectangleBorder(borderRadius: BorderRadius.all(Radius.circular(10))),
+                    shape: const BeveledRectangleBorder(borderRadius: BorderRadius.all(Radius.circular(5))),
                     // side: BorderSide(color: Colors.white),
                     primary: Colors.white,
                     onPrimary: Colors.black,
@@ -143,10 +163,13 @@ class Q_ec extends State<Qec> {
                       child: Center(
                         child: Text('Calculate'),
                       ))),
+                      new Padding(
+                padding: const EdgeInsets.only(top: 20.0),
+              ),
               ElevatedButton(
                   onPressed: doClear,
                   style: ElevatedButton.styleFrom(
-                    shape: const BeveledRectangleBorder(borderRadius: BorderRadius.all(Radius.circular(10))),
+                    shape: const BeveledRectangleBorder(borderRadius: BorderRadius.all(Radius.circular(5))),
                     // side: BorderSide(color: Colors.white),
                     primary: Colors.white,
                     onPrimary: Colors.black,

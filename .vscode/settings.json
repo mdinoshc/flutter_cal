@@ -1,5 +1,7 @@
 {
     "cSpell.words": [
-        "EDUBYTE"
-    ]
+        "EDUBYTE",
+        "numer"
+    ],
+    "cmake.configureOnOpen": false
 }
