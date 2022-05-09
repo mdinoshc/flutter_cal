@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
+import 'package:cool_alert/cool_alert.dart';
 import 'dart:math';
-// import 'package:flutter_tex/flutter_tex.dart';
 
 class Qec extends StatefulWidget {
   Qec();
@@ -31,6 +31,13 @@ class Q_ec extends State<Qec> {
 
   void doCalculate() {
     setState(() {
+      if(t1.text.isEmpty || t2.text.isEmpty || t3.text.isEmpty) {
+        CoolAlert.show(
+      context: context, 
+      type: CoolAlertType.warning,
+      text: "Please fill every fields..."
+      );
+      }else {
       num1 = double.parse(t1.text);
       num2 = double.parse(t2.text);
       num3 = double.parse(t3.text);
@@ -40,6 +47,7 @@ class Q_ec extends State<Qec> {
       sum2numer=(-num2-pow(d,0.5));
       sum1=sum1numer/den;
       sum2=sum2numer/den;
+      }
     });
   }
 
@@ -105,42 +113,18 @@ class Q_ec extends State<Qec> {
               new Padding(
                 padding: const EdgeInsets.only(top: 40.0),
               ),
-              // new Text(
-              //   "a :",
-              //   style: new TextStyle(
-              //     fontSize: 15.0,
-              //     color: Colors.white,
-              //     fontWeight: FontWeight.bold,
-              //   ),
-              // ),
               new TextField(
                 keyboardType: TextInputType.number,
                 decoration:
                     new InputDecoration(hintText: "Enter coefficient of x² (a)"),
                 controller: t1,
               ),
-              // new Text(
-              //   "b :",
-              //   style: new TextStyle(
-              //     fontSize: 15.0,
-              //     color: Colors.white,
-              //     fontWeight: FontWeight.bold,
-              //   ),
-              // ),
               new TextField(
                 keyboardType: TextInputType.number,
                 decoration:
                     new InputDecoration(hintText: "Enter coefficient x (b)"),
                 controller: t2,
               ),
-              // new Text(
-              //   "c :",
-              //   style: new TextStyle(
-              //     fontSize: 15.0,
-              //     color: Colors.white,
-              //     fontWeight: FontWeight.bold,
-              //   ),
-              // ),
               new TextField(
                 keyboardType: TextInputType.number,
                 decoration: new InputDecoration(hintText: "Enter constant (c)"),
@@ -153,7 +137,6 @@ class Q_ec extends State<Qec> {
                   onPressed: doCalculate,
                   style: ElevatedButton.styleFrom(
                     shape: const BeveledRectangleBorder(borderRadius: BorderRadius.all(Radius.circular(5))),
-                    // side: BorderSide(color: Colors.white),
                     primary: Colors.white,
                     onPrimary: Colors.black,
                   ),
@@ -170,7 +153,6 @@ class Q_ec extends State<Qec> {
                   onPressed: doClear,
                   style: ElevatedButton.styleFrom(
                     shape: const BeveledRectangleBorder(borderRadius: BorderRadius.all(Radius.circular(5))),
-                    // side: BorderSide(color: Colors.white),
                     primary: Colors.white,
                     onPrimary: Colors.black,
                   ),

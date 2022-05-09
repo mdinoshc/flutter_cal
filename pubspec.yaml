@@ -30,6 +30,7 @@ dependencies:
   cupertino_icons: ^1.0.0
   flutter_launcher_icons: "^0.8.1"
   flutter_tex: ^3.6.7+10
+  cool_alert: ^1.0.3
 
 flutter_icons:
   image_path: "assets/images/tutlogo.png"

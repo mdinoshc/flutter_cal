@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
+import 'package:cool_alert/cool_alert.dart';
 import 'dart:math';
 import 'qec.dart';
 
@@ -16,33 +17,113 @@ class HomePageState extends State<HomePage> {
 
   void doAddition() {
     setState(() {
-      num1 = double.parse(t1.text);
+      if(t1.text.isEmpty || t2.text.isEmpty) {
+        CoolAlert.show(
+      context: context, 
+      type: CoolAlertType.warning,
+      text: "Please fill every fields..."
+      );
+      }else {
+         num1 = double.parse(t1.text);
       num2 = double.parse(t2.text);
       sum = num1 + num2;
+      }
     });
   }
 
   void doSubtraction() {
     setState(() {
-      num1 = double.parse(t1.text);
+     if(t1.text.isEmpty && t2.text.isEmpty) {
+        CoolAlert.show(
+      context: context, 
+      type: CoolAlertType.warning,
+      text: "Please fill every fields..."
+      );
+      }else {
+         num1 = double.parse(t1.text);
       num2 = double.parse(t2.text);
       sum = num1 - num2;
+      }
     });
   }
 
   void doMultiplication() {
     setState(() {
-      num1 = double.parse(t1.text);
+      if(t1.text.isEmpty && t2.text.isEmpty) {
+        CoolAlert.show(
+      context: context, 
+      type: CoolAlertType.warning,
+      text: "Please fill every fields..."
+      );
+      }else {
+         num1 = double.parse(t1.text);
       num2 = double.parse(t2.text);
       sum = num1 * num2;
+      }
     });
   }
 
   void doDivision() {
     setState(() {
-      num1 = double.parse(t1.text);
+      if(t1.text.isEmpty && t2.text.isEmpty) {
+        CoolAlert.show(
+      context: context, 
+      type: CoolAlertType.warning,
+      text: "Please fill every fields..."
+      );
+      }else {
+         num1 = double.parse(t1.text);
       num2 = double.parse(t2.text);
       sum = num1 / num2;
+      }
+    });
+  }
+
+  void doModule() {
+    setState(() {
+     if(t1.text.isEmpty && t2.text.isEmpty) {
+        CoolAlert.show(
+      context: context, 
+      type: CoolAlertType.warning,
+      text: "Please fill every fields..."
+      );
+      }else {
+         num1 = double.parse(t1.text);
+      num2 = double.parse(t2.text);
+      sum = num1 % num2;
+      }
+    });
+  }
+
+  void doPower() {
+    setState(() {
+      if(t1.text.isEmpty && t2.text.isEmpty) {
+        CoolAlert.show(
+      context: context, 
+      type: CoolAlertType.warning,
+      text: "Please fill every fields..."
+      );
+      }else {
+         num1 = double.parse(t1.text);
+      num2 = double.parse(t2.text);
+      sum = pow(num1, num2);
+      }
+    });
+  }
+
+  void doRoot() {
+    setState(() {
+      if(t1.text.isEmpty && t2.text.isEmpty) {
+        CoolAlert.show(
+      context: context, 
+      type: CoolAlertType.warning,
+      text: "Please fill every fields..."
+      );
+      }else {
+         num1 = double.parse(t1.text);
+      num2 = double.parse(t2.text);
+      sum = pow(num1, (1 / num2));
+      }
     });
   }
 
@@ -51,30 +132,6 @@ class HomePageState extends State<HomePage> {
       t1.text = " ";
       t2.text = " ";
       sum = 0;
-    });
-  }
-
-  void doModule() {
-    setState(() {
-      num1 = double.parse(t1.text);
-      num2 = double.parse(t2.text);
-      sum = num1 % num2;
-    });
-  }
-
-  void doPower() {
-    setState(() {
-      num1 = double.parse(t1.text);
-      num2 = double.parse(t2.text);
-      sum = pow(num1, num2);
-    });
-  }
-
-  void doRoot() {
-    setState(() {
-      num1 = double.parse(t1.text);
-      num2 = double.parse(t2.text);
-      sum = pow(num1, (1 / num2));
     });
   }
 
