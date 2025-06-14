@@ -1,5 +1,6 @@
+import 'package:calculatorapp/keys/keyz.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/rendering.dart';
+import 'package:package_info_plus/package_info_plus.dart';
 import 'dart:math';
 import 'qec.dart';
 
@@ -9,73 +10,174 @@ class HomePage extends StatefulWidget {
 }
 
 class HomePageState extends State<HomePage> {
-  var num1 = 0.0, num2 = 0.0, sum = 0.0;
+
+  _initPackageInfo() async {
+    final info = await PackageInfo.fromPlatform();
+    setState(() {
+      packageInfo = info;
+    });
+  }
+
+  PackageInfo packageInfo = PackageInfo(appName: 'Unknown', packageName: 'Unknown', version: 'Unknown', buildNumber: 'Unknown');
+
+  @override
+  void initState() {
+    super.initState();
+    _initPackageInfo();
+  }
+
+  Widget Appdet(String app_text, String app_detail) {
+    return ListTile(
+      title: Row(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          Text(app_text)
+        ],
+      ),
+      subtitle: Row(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          Text(app_detail)
+        ],
+      ),
+    );
+  }
+
+  double num1 = 0.0, num2 = 0.0, sum = 0.0;
+
+  String firstPlaceHolder = "Enter number 1";
+  String secondPlaceHolder = "Enter number 2";
 
   final TextEditingController t1 = new TextEditingController(text: "");
   final TextEditingController t2 = new TextEditingController(text: "");
 
   void doAddition() {
-    setState(() {
-      num1 = double.parse(t1.text);
-      num2 = double.parse(t2.text);
-      sum = num1 + num2;
-    });
+    try {
+      setState(() {
+        num1 = double.parse(t1.value.text);
+        num2 = double.parse(t2.value.text);
+        sum = num1 + num2;
+      });
+    } on Exception catch(exception) {
+      print("Invalid Entries ");
+    } catch(e) {
+      print("Error occurred");
+    }
   }
 
   void doSubtraction() {
-    setState(() {
-      num1 = double.parse(t1.text);
-      num2 = double.parse(t2.text);
-      sum = num1 - num2;
-    });
+    try {
+      setState(() {
+        num1 = double.parse(t1.text);
+        num2 = double.parse(t2.text);
+        sum = num1 - num2;
+      });
+    } on Exception catch(FormatException) {
+      print("Invalid Entries");
+    } catch(e) {
+      print("Error occurred");
+    }
   }
 
   void doMultiplication() {
-    setState(() {
-      num1 = double.parse(t1.text);
-      num2 = double.parse(t2.text);
-      sum = num1 * num2;
-    });
+    try {
+      setState(() {
+        num1 = double.parse(t1.text);
+        num2 = double.parse(t2.text);
+        sum = num1 * num2;
+      });
+    } on Exception catch(FormatException) {
+      print("Invalid Entries");
+    } catch(e) {
+      print("Error occurred");
+    }
   }
 
   void doDivision() {
-    setState(() {
-      num1 = double.parse(t1.text);
-      num2 = double.parse(t2.text);
-      sum = num1 / num2;
-    });
+    try {
+      setState(() {
+        num1 = double.parse(t1.text);
+        num2 = double.parse(t2.text);
+        sum = num1 / num2;
+      });
+    } on Exception catch(FormatException) {
+      print("Invalid Entries");
+    } catch(e) {
+      print("Error occurred");
+    }
   }
 
   void doClear() {
     setState(() {
-      t1.text = "0";
-      t2.text = "0";
+      t1.text = firstPlaceHolder;
+      t2.text = secondPlaceHolder;
       sum = 0;
     });
   }
 
   void doModule() {
-    setState(() {
-      num1 = double.parse(t1.text);
-      num2 = double.parse(t2.text);
-      sum = num1 % num2;
-    });
+    try {
+      setState(() {
+        num1 = double.parse(t1.text);
+        num2 = double.parse(t2.text);
+        sum = num1 % num2;
+      });
+    } on Exception catch(FormatException) {
+      print("Invalid Entries");
+    } catch(e) {
+      print("Error occurred");
+    }
   }
 
   void doPower() {
-    setState(() {
-      num1 = double.parse(t1.text);
-      num2 = double.parse(t2.text);
-      sum = pow(num1, num2);
-    });
+    try {
+      setState(() {
+        num1 = double.parse(t1.text);
+        num2 = double.parse(t2.text);
+        sum = pow(num1, num2).toDouble();
+      });
+    } on Exception catch(FormatException) {
+      print("Invalid Entries");
+    } catch(e) {
+      print("Error occurred");
+    }
   }
 
   void doRoot() {
-    setState(() {
-      num1 = double.parse(t1.text);
-      num2 = double.parse(t2.text);
-      sum = pow(num1, (1 / num2));
-    });
+    try {
+      setState(() {
+        num1 = double.parse(t1.text);
+        num2 = double.parse(t2.text);
+        sum = pow(num1, (1 / num2)).toDouble();
+      });
+    } on Exception catch(FormatException) {
+      print("Invalid Entries");
+    } catch(e) {
+      print("Error occurred");
+    }
+  }
+
+  Widget calculation_button(GlobalKey<State> myKey, String btnname, Color btncolor, void btnaction()) {
+    return new ElevatedButton(
+      key: myKey,
+        onPressed: btnaction,
+        style: ElevatedButton.styleFrom(
+          shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(10),
+              side: BorderSide(color: Colors.white)),
+          backgroundColor: btncolor,
+        ),
+        child: Text(btnname)
+    );
+  }
+
+  Widget textFieldNum(GlobalKey<State> newKey, String HT, TextEditingController txtCtrl) {
+    return TextField(
+      key: newKey,
+      keyboardType: TextInputType.number,
+      decoration: new InputDecoration(hintText: HT),
+      controller: txtCtrl,
+    );
   }
 
   @override
@@ -85,6 +187,9 @@ class HomePageState extends State<HomePage> {
         title: new Text("Mini Dual Number Calculator"),
         centerTitle: true,
       ),
+      persistentFooterButtons: [
+        Appdet('App Version', packageInfo.version)
+      ],
       body: new Container(
         padding: const EdgeInsets.all(40.0),
         child: SingleChildScrollView(
@@ -99,13 +204,15 @@ class HomePageState extends State<HomePage> {
                     fontWeight: FontWeight.bold),
               ),
               new TextField(
+                key: testKeyz.firstNumKey,
                 keyboardType: TextInputType.number,
-                decoration: new InputDecoration(hintText: "Enter number 1"),
+                decoration: new InputDecoration(hintText: firstPlaceHolder),
                 controller: t1,
               ),
               new TextField(
+                key: testKeyz.secondNumKey,
                 keyboardType: TextInputType.number,
-                decoration: new InputDecoration(hintText: "Enter number 2"),
+                decoration: new InputDecoration(hintText: secondPlaceHolder),
                 controller: t2,
               ),
               new Padding(
@@ -114,22 +221,8 @@ class HomePageState extends State<HomePage> {
               new Row(
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 children: <Widget>[
-                  new FlatButton(
-                    shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(10),
-                        side: BorderSide(color: Colors.white)),
-                    child: new Text("+"),
-                    color: Colors.transparent,
-                    onPressed: doAddition,
-                  ),
-                  new FlatButton(
-                    shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(10),
-                        side: BorderSide(color: Colors.white)),
-                    child: new Text("-"),
-                    color: Colors.transparent,
-                    onPressed: doSubtraction,
-                  ),
+                  calculation_button(testKeyz.AddBtn, "+", Colors.transparent, doAddition),
+                  calculation_button(testKeyz.SubBtn, "-", Colors.transparent, doSubtraction)
                 ],
               ),
               new Padding(
@@ -138,22 +231,8 @@ class HomePageState extends State<HomePage> {
               new Row(
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 children: <Widget>[
-                  new FlatButton(
-                    shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(10),
-                        side: BorderSide(color: Colors.white)),
-                    child: new Text("*"),
-                    color: Colors.transparent,
-                    onPressed: doMultiplication,
-                  ),
-                  new FlatButton(
-                    shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(10),
-                        side: BorderSide(color: Colors.white)),
-                    child: new Text("/"),
-                    color: Colors.transparent,
-                    onPressed: doDivision,
-                  ),
+                  calculation_button(testKeyz.MultiplyBtn, "*", Colors.transparent, doMultiplication),
+                  calculation_button(testKeyz.DivideBtn, "/", Colors.transparent, doDivision)
                 ],
               ),
               new Padding(
@@ -162,30 +241,9 @@ class HomePageState extends State<HomePage> {
               new Row(
                   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                   children: <Widget>[
-                    new FlatButton(
-                      shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(10),
-                          side: BorderSide(color: Colors.white)),
-                      child: new Text("Mod"),
-                      color: Colors.transparent,
-                      onPressed: doModule,
-                    ),
-                    new FlatButton(
-                      shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(10),
-                          side: BorderSide(color: Colors.white)),
-                      child: new Text("Pow"),
-                      color: Colors.transparent,
-                      onPressed: doPower,
-                    ),
-                    new FlatButton(
-                      shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(10),
-                          side: BorderSide(color: Colors.white)),
-                      child: new Text("Root"),
-                      color: Colors.transparent,
-                      onPressed: doRoot,
-                    ),
+                    calculation_button(testKeyz.ModBtn, "Mod", Colors.transparent,doModule),
+                    calculation_button(testKeyz.PowBtn, "Pow", Colors.transparent, doPower),
+                    calculation_button(testKeyz.RootBtn, "Root", Colors.transparent, doRoot)
                   ]),
               new Padding(
                 padding: const EdgeInsets.only(top: 20.0),
@@ -193,14 +251,7 @@ class HomePageState extends State<HomePage> {
               new Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: <Widget>[
-                    new FlatButton(
-                      shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(10),
-                          side: BorderSide(color: Colors.white)),
-                      child: new Text("Clear"),
-                      color: Colors.transparent,
-                      onPressed: doClear,
-                    ),
+                    calculation_button(testKeyz.ClrBtn, "Clear", Colors.transparent, doClear)
                   ]),
               new Padding(
                 padding: const EdgeInsets.only(top: 20.0),
@@ -209,6 +260,7 @@ class HomePageState extends State<HomePage> {
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: <Widget>[
                   ElevatedButton(
+                    key: testKeyz.QECBtn,
                       onPressed: () {
                         Navigator.push(
                           context,
@@ -221,7 +273,7 @@ class HomePageState extends State<HomePage> {
                             child: Text('Quadratic Equation Calculator'),
                           ))),
                 ],
-              )
+              ),
             ],
           ),
         ),

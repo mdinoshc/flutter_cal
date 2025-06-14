@@ -1,7 +1,6 @@
+import 'package:calculatorapp/keys/keyz.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/rendering.dart';
 import 'dart:math';
-// import 'package:flutter_tex/flutter_tex.dart';
 
 class Qec extends StatefulWidget {
   Qec();
@@ -17,26 +16,36 @@ class Q_ec extends State<Qec> {
   final TextEditingController t2 = new TextEditingController(text: "");
   final TextEditingController t3 = new TextEditingController(text: "");
 
+  String firstPH = "Enter coefficient of x²(a)";
+  String secondPH = "Enter coefficient x(b)";
+  String thirdPH = "Enter constant(c)";
+
   void doClear() {
     setState(() {
-      t1.text = "0";
-      t2.text = "0";
-      t3.text = "0";
+      t1.text = firstPH;
+      t2.text = secondPH;
+      t3.text = thirdPH;
       sum1 = 0;
       sum2 = 0;
     });
   }
 
   void doCalculate() {
-    setState(() {
-      num1 = double.parse(t1.text);
-      num2 = double.parse(t2.text);
-      num3 = double.parse(t3.text);
-      sum1 =
-          ((-1 * num2) + pow(pow(num2, 2) - (4 * num1 * num3), 0.5)) / 2 * num1;
-      sum2 =
-          ((-1 * num2) - pow(pow(num2, 2) - (4 * num1 * num3), 0.5)) / 2 * num1;
-    });
+    try {
+      setState(() {
+        num1 = double.parse(t1.text);
+        num2 = double.parse(t2.text);
+        num3 = double.parse(t3.text);
+        sum1 =
+            ((-1 * num2) + pow(pow(num2, 2) - (4 * num1 * num3), 0.5)) / 2 * num1;
+        sum2 =
+            ((-1 * num2) - pow(pow(num2, 2) - (4 * num1 * num3), 0.5)) / 2 * num1;
+      });
+    } on Exception catch(FormatException) {
+      print("Invalid Entries");
+    } catch(e) {
+      print("Error occurred");
+    }
   }
 
   @override
@@ -85,54 +94,34 @@ class Q_ec extends State<Qec> {
               new Padding(
                 padding: const EdgeInsets.only(top: 40.0),
               ),
-              // new Text(
-              //   "a :",
-              //   style: new TextStyle(
-              //     fontSize: 15.0,
-              //     color: Colors.white,
-              //     fontWeight: FontWeight.bold,
-              //   ),
-              // ),
               new TextField(
+                key: testKeyz.firstNumKeyQec,
                 keyboardType: TextInputType.number,
                 decoration:
-                    new InputDecoration(hintText: "Enter coefficient of x²(a)"),
+                    new InputDecoration(hintText: firstPH),
                 controller: t1,
               ),
-              // new Text(
-              //   "b :",
-              //   style: new TextStyle(
-              //     fontSize: 15.0,
-              //     color: Colors.white,
-              //     fontWeight: FontWeight.bold,
-              //   ),
-              // ),
               new TextField(
+                key: testKeyz.secondNumKeyQec,
                 keyboardType: TextInputType.number,
                 decoration:
-                    new InputDecoration(hintText: "Enter coeffcient x(b)"),
+                    new InputDecoration(hintText: secondPH),
                 controller: t2,
               ),
-              // new Text(
-              //   "c :",
-              //   style: new TextStyle(
-              //     fontSize: 15.0,
-              //     color: Colors.white,
-              //     fontWeight: FontWeight.bold,
-              //   ),
-              // ),
               new TextField(
+                key: testKeyz.thirdNumKeyQec,
                 keyboardType: TextInputType.number,
-                decoration: new InputDecoration(hintText: "Enter constant(c)"),
+                decoration: new InputDecoration(hintText: thirdPH),
                 controller: t3,
               ),
               new Padding(
                 padding: const EdgeInsets.only(top: 40.0),
               ),
               ElevatedButton(
+                key: testKeyz.CalBtn,
                   onPressed: doCalculate,
                   style: ElevatedButton.styleFrom(
-                    shape: const BeveledRectangleBorder(borderRadius: BorderRadius.all(Radius.circular(10))),
+                    shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
                     side: BorderSide(color: Colors.white),
                   ),
                   child: Container(
@@ -142,9 +131,10 @@ class Q_ec extends State<Qec> {
                         child: Text('Calculate'),
                       ))),
               ElevatedButton(
+                key: testKeyz.ClrQecBtn,
                   onPressed: doClear,
                   style: ElevatedButton.styleFrom(
-                    shape: const BeveledRectangleBorder(borderRadius: BorderRadius.all(Radius.circular(10))),
+                    shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
                     side: BorderSide(color: Colors.white),
                   ),
                   child: Container(

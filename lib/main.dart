@@ -10,7 +10,9 @@ class MyApp extends StatelessWidget {
       title: "Calculator App",
       debugShowCheckedModeBanner: false,
       theme: new ThemeData(
-          brightness: Brightness.dark, primarySwatch: Colors.purple),
+          brightness: Brightness.dark,
+        dividerColor: Colors.transparent,
+      ),
       home: new HomePage(),
     );
   }
